@@ -24,16 +24,16 @@ func NewRandomQuadratic(worker *Worker) *Quadratic {
 	y2 := y1 + rnd.Float64()*40 - 20
 	x3 := x2 + rnd.Float64()*40 - 20
 	y3 := y2 + rnd.Float64()*40 - 20
-	width := 1.0
+	width := 1.0 / 2
 	q := &Quadratic{worker, x1, y1, x2, y2, x3, y3, width}
 	q.Mutate()
 	return q
 }
 
 func (q *Quadratic) Draw(dc *gg.Context, scale float64) {
-	dc.MoveTo(float64(q.X1), float64(q.Y1))
-	dc.QuadraticTo(float64(q.X2), float64(q.Y2), float64(q.X3), float64(q.Y3))
-	dc.SetLineWidth(float64(q.Width) * scale)
+	dc.MoveTo(q.X1, q.Y1)
+	dc.QuadraticTo(q.X2, q.Y2, q.X3, q.Y3)
+	dc.SetLineWidth(q.Width * scale)
 	dc.Stroke()
 }
 
